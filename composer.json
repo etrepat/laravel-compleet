@@ -1,0 +1,33 @@
+{
+  "name": "etrepat/laravel-compleet",
+  "description": " Laravel integration for Compleet: A Redis-backed service for fast autocompleting",
+  "keywords": ["redis", "autocomplete", "search", "laravel"],
+  "homepage": "https://github.com/etrepat/compleet",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/etrepat/laravel-compleet/issues"
+  },
+  "authors": [
+    {
+      "name": "Estanislau Trepat",
+      "email": "estanis@etrepat.com",
+      "homepage": "http://etrepat.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "etrepat/compleet": "dev-master",
+    "illuminate/support": "~4.2|~5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "classmap": [
+        "src/controllers"
+    ],
+    "psr-0": {
+      "Etrepat\\LaravelCompleet\\": "src/"
+    }
+  }
+}
