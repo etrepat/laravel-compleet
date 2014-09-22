@@ -2,6 +2,7 @@
 namespace Etrepat\LaravelCompleet;
 
 use Illuminate\Foundation\Application;
+use Predis\Client;
 use Compleet\Loader;
 use Compleet\Matcher;
 
@@ -13,6 +14,13 @@ class CompleetManager {
    * @var \Illuminate\Foundation\Application
    */
   protected $app;
+
+  /**
+   * Redis connection instance.
+   *
+   * @var \Predis\Client
+   */
+  protected $redis;
 
   /**
    * Compleet loader instance.
@@ -36,10 +44,6 @@ class CompleetManager {
    */
   public function __construct(Application $app) {
     $this->app = $app;
-
-    $this->loader = null;
-
-    $this->matcher = null;
   }
 
   /**
@@ -117,14 +121,26 @@ class CompleetManager {
   }
 
   /**
+   * Get the redis connection name/parameters.
+   *
+   * @return string
+   */
+  public function redisConnection() {
+    return $this->app['config']->get('laravel-compleet::redis');
+  }
+
+  /**
    * Get the redis connection to use.
    *
    * @return Predis\Client
    */
   public function redis() {
-    $connection = $this->app['config']->get('compleet::redis');
+    if ( !is_null($this->redis) ) return $this->redis;
 
-    return $this->app['redis']->connection($connection);
+    $name = $this->redisConnection();
+
+    $this->redis = is_array($name) ? new Client($name) : $this->app['redis']->connection($name);
+    return $this->redis;
   }
 
   /**
