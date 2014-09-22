@@ -149,7 +149,7 @@ class CompleetManager {
    * @return int
    */
   public function getMinComplete() {
-    return $this->app['config']->get('compleet::min-complete') ?: 2;
+    return $this->app['config']->get('laravel-compleet::min-complete') ?: 2;
   }
 
   /**
@@ -158,7 +158,7 @@ class CompleetManager {
    * @return int
    */
   public function getStopWords() {
-    return $this->app['config']->get('compleet::stop-words') ?: [];
+    return $this->app['config']->get('laravel-compleet::stop-words') ?: [];
   }
 
   /**
