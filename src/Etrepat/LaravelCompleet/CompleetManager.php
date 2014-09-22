@@ -173,7 +173,7 @@ class CompleetManager {
 
     $this->loader = new Loader($type, $this->redis());
     $this->loader->setMinComplete($this->getMinComplete());
-    $this->laoder->setStopWords($this->getStopWords());
+    $this->loader->setStopWords($this->getStopWords());
 
     return $this->loader;
   }
