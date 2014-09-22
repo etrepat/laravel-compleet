@@ -23,9 +23,6 @@
     "phpunit/phpunit": "~4.0"
   },
   "autoload": {
-    "classmap": [
-        "src/controllers"
-    ],
     "psr-0": {
       "Etrepat\\LaravelCompleet\\": "src/"
     }

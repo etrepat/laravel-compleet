@@ -16,6 +16,17 @@ return array(
 
   /*
   |--------------------------------------------------------------------------
+  | Url
+  |--------------------------------------------------------------------------
+  |
+  | Url path that will be used to serve the autocomplete requests.
+  |
+  */
+
+  'url' => 'autocomplete',
+
+  /*
+  |--------------------------------------------------------------------------
   | Min. complete
   |--------------------------------------------------------------------------
   |
@@ -31,8 +42,8 @@ return array(
   | Stop words
   |--------------------------------------------------------------------------
   |
-  | Default set of stop words. This will be ignored both when indexing and
-  | matching.
+  | Default set of stop words. Words included here will be ignored both when
+  | indexing and matching.
   |
   */
 

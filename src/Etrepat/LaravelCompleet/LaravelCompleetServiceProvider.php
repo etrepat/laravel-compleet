@@ -2,7 +2,7 @@
 namespace Etrepat\LaravelCompleet;
 
 use Illuminate\Support\ServiceProvider;
-
+use Compleet\Base as CompleetBase;
 use Etrepat\LaravelCompleet\Commands\LoadCommand;
 use Etrepat\LaravelCompleet\Commands\ClearCommand;
 use Etrepat\LaravelCompleet\Commands\AddCommand;
@@ -31,7 +31,9 @@ class LaravelCompleetServiceProvider extends ServiceProvider {
    * @return void
    */
   public function boot() {
-    $this->package('etrepat/laravel-compleet');
+    $this->package('etrepat/laravel-compleet', 'laravel-compleet');
+
+    include __DIR__ . '/../../routes.php';
   }
 
   /**
