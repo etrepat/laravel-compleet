@@ -29,18 +29,25 @@ class CompleetController extends Controller {
   public function search() {
     if ( !Input::has('types') || !Input::has('term') ) return App::abort('404');
 
-    $limit  = Input::has('limit') ? intval(Input::get('limit')) : 5;
-    $types  = Input::get('types');
-    $term   = Input::get('term');
+    $limit    = Input::has('limit') ? intval(Input::get('limit')) : 5;
+    $types    = Input::get('types');
+    $term     = Input::get('term');
 
+    $results  = $this->getResults($types, $term);
+
+    return Response::json(['term' => $term, 'results' => $results])->setCallback(Input::get('callback'));
+  }
+
+  protected function getResults($types, $term) {
     if ( !is_array($types) ) $types = array($types);
     $types  = array_map(function($t) { return StrUtil::normalize($t); }, $types);
 
     $results = array();
+
     foreach($types as $type)
       $results[$type] = $this->manager->matches($type, $term, ['limit' => $limit]);
 
-    return Response::json(['term' => $term, 'results' => $results])->setCallback(Input::get('callback'));
+    return $results;
   }
 
 }
