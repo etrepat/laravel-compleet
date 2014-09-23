@@ -33,19 +33,19 @@ class CompleetController extends Controller {
     $types    = Input::get('types');
     $term     = Input::get('term');
 
-    $results  = $this->getResults($types, $term);
+    $results  = $this->getResults($types, $term, ['limit' => $limit]);
 
     return Response::json(['term' => $term, 'results' => $results])->setCallback(Input::get('callback'));
   }
 
-  protected function getResults($types, $term) {
+  protected function getResults($types, $term, $options = array()) {
     if ( !is_array($types) ) $types = array($types);
     $types  = array_map(function($t) { return StrUtil::normalize($t); }, $types);
 
     $results = array();
 
     foreach($types as $type)
-      $results[$type] = $this->manager->matches($type, $term, ['limit' => $limit]);
+      $results[$type] = $this->manager->matches($type, $term, $options);
 
     return $results;
   }
