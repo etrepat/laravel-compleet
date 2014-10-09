@@ -171,11 +171,8 @@ class CompleetManager {
     if ( !is_null($this->loader) && $this->loader->getType() == $type )
       return $this->loader;
 
-    $this->loader = new Loader($type, $this->redis());
-    $this->loader->setMinComplete($this->getMinComplete());
-    $this->loader->setStopWords($this->getStopWords());
-
-    return $this->loader;
+    $this->matcher = $this->getCompleetObject('Compleet\Loader', $type);
+    return $this->matcher;
   }
 
   /**
@@ -188,11 +185,26 @@ class CompleetManager {
     if ( !is_null($this->matcher) && $this->matcher->getType() == $type )
       return $this->matcher;
 
-    $this->matcher = new Matcher($type, $this->redis());
-    $this->matcher->setMinComplete($this->getMinComplete());
-    $this->matcher->setStopWords($this->getStopWords());
-
+    $this->matcher = $this->getCompleetObject('Compleet\Matcher', $type);
     return $this->matcher;
+  }
+
+  /**
+   * Resolves a Compleet\{Loader,Matcher} instance for the supplied type.
+   *
+   * @param   string $klass
+   * @param   string $type
+   * @return  mixed
+   */
+  protected function getCompleetObject($klass, $type) {
+    $obj = new $klass($type);
+
+    $obj->setConnection($this->redis());
+
+    $obj->setMinComplete($this->getMinComplete());
+    $obj->setStopWords($this->getStopWords());
+
+    return $obj;
   }
 
 }
