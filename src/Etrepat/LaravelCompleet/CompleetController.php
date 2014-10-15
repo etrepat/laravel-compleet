@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Compleet\Base as CompleetBase;
-use Compleet\Util\Str as StrUtil;
+use Compleet\Support\Str as StrUtil;
 
 class CompleetController extends Controller {
 
